@@ -1,0 +1,39 @@
+FLYDUBAI CHATBOT PROJECT
+
+DEVELOPERS : ANIRUDH DAHIYA, HEMANT KASAT, NIKHIL GARAKAPATI
+
+The chatbot is in its nascent stage at the time of writing this document, and various aspects of the 
+bot are being formalised into classes.
+Below is a brief description of the workflow and various components that are being designed.
+
+Session:
+    This is the engine of the chatbot, and the user input output is handled from hereon.
+    Firstly the bot greets the user, and makes it aware of the capabilities of the bot by
+    mentioning the services it provides, which are currently: flight search, booking and tracking.
+    
+    The successive user inputs are passed onto the inputProcessor method, which itself calls two components.
+    * attributeGetter : This method takes in the user input and the current active context, and gives out the
+                        cleaned output, and the identified attributes.
+    * intentIdentifier : This method takes in the cleaned user input and the current active context, and gives the
+                        intent behind the user utterance. It can lead to the user staying in the same intent, or change
+                        of user intent
+
+    The session also stores all the user variables which have been accumulated over the course of the conversation.
+
+Intent:
+    This represents an intent in the conversational flow, which for now can be either book, search or track. It contains data
+    about the corresponding user utterances for this intent, the required parameters of this intent and the action of this intent.
+
+    The required parameters are all linked to the entities in the chatbot, like place, time, class etc. There is also the option of 
+    setting these parameters to True, and also the option of setting up the corresponding prompts.
+
+Entity:
+    There can be two types of entities :
+    * Expressions : These can be time, date, number and other variables.
+    * Named : These are fixed value entities, like places, ticket-class etc.
+
+Context:
+    These act as flags for the conversational flow, and can be invoked by intent or the user utterance.
+    These also have a lifespan attribute, which shall be ideally decreased by 1 at each user input.
+
+
